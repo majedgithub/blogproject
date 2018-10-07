@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block title %}Article index{% endblock %}
+
+{% block body %}
+    <h1>Article index</h1>
+
+    <div class="jumbotron">
+
+    {% for article in articles %}
+
+        <h1 class="display-3">{{ article.titre }}</h1>
+        <p class="lead">{{ article.description }}</p>
+        <hr class="my-4">
+        <p>{{ article.datecreation ? article.datecreation|date('Y-m-d H:i:s') : '' }}</p>
+        <img src="{{ article.image }}" width="600" height="400">
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="{{ path('article_show', {'id': article.id}) }}" role="button">show</a>
+            <a class="btn btn-primary btn-lg" href="{{ path('article_edit', {'id': article.id}) }}" role="button">edit</a>
+        </p>
+    </div>
+
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+
+    <a href="{{ path('article_new') }}">Create new</a>
+{% endblock %}
